@@ -1,14 +1,11 @@
-# frontend/Dockerfile
-
-# Use Node.js as a base image
 FROM node:18-alpine
 
 # Set working directory
-# WORKDIR /app
+WORKDIR /app
 
 # Copy package.json and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN apk add --no-cache python3 make g++ && npm install --legacy-peer-deps
 
 # Copy the entire project
 COPY . .
@@ -20,4 +17,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npx", "next", "start"]

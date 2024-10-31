@@ -8,6 +8,7 @@ import SideBarMenu from "./components/SideBarMenu";
 
 export default function CreatePage() {
   const [title, setTitle] = useState("Create Page");
+  console.log(setTitle);
   const [html, setHTML] = useState(
     "\
 	<div>\
@@ -34,7 +35,7 @@ export default function CreatePage() {
     { type: "user", message: "I need help with CSS.", id: "6" },
     { type: "bot", message: "Sure! What do you need help with?", id: "7" },
   ]);
-
+  console.log(setChatHistory);
   const sessions = [
     { id: "1", name: "Session 1" },
     { id: "2", name: "Session 2" },

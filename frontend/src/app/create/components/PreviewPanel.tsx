@@ -7,6 +7,7 @@ type PreviewPanelProps = {
 
 export default function PreviewPanel(props: PreviewPanelProps) {
   const { css, html } = props;
+  console.log(css);
   const reactified = parse(html);
   return (
     <div className={"h-full w-full flex items-center justify-center"}>

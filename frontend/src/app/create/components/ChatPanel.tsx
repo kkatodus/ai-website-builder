@@ -8,6 +8,8 @@ type ChatPanelProps = {
 
 export default function ChatPanel(props: ChatPanelProps) {
   const { html, css, chatHistory } = props;
+  console.log(css);
+  console.log(html);
   return (
     <div className="bg-white h-full relative">
       <div className="h-[80%] overflow-y-scroll">
@@ -35,7 +37,7 @@ export default function ChatPanel(props: ChatPanelProps) {
       <div className="h-[20%] flex items-center justify-center">
         <div className="flex bg-[#F4F4F4] relative w-[80%] h-90 p-4 justify-around rounded-xl">
           <input className="w-[80%] bg-[#F4F4F4]" />
-          <button className="text-4xl">
+          <button className="text-4xl duration-200 ease-in-out transition-all text-black hover:text-gray-400">
             <FaArrowCircleUp />
           </button>
         </div>
