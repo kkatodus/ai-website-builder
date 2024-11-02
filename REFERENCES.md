@@ -13,3 +13,9 @@
 [6] ChatGPT to help me with Dockerfiles
 
 [7] Github co-pilot for general coding help
+
+[8] Postman for API testing: <https://www.postman.com/>
+
+[9] Sanitizingn HTML: <https://www.npmjs.com/package/sanitize-html>
+
+[10] Pretty loading animations: <https://www.npmjs.com/package/react-spinners>

@@ -8,13 +8,25 @@ type CodingPanelProps = {
 
 export default function CodingPanel(props: CodingPanelProps) {
   const { code, setCode, language } = props;
-  return (
-    <Editor
-      height="100%"
-      defaultLanguage={language}
-      defaultValue={code}
-      onChange={(value) => setCode(value ?? "")}
-      width="50%"
-    />
-  );
+  if (language === "html") {
+    return (
+      <Editor
+        height="100%"
+        defaultLanguage={language}
+        value={code}
+        onChange={(value) => setCode(value || "")}
+        width="50%"
+      />
+    );
+  } else {
+    return (
+      <Editor
+        height="100%"
+        defaultLanguage={language}
+        value={code}
+        onChange={(value) => setCode(value || "")}
+        width="50%"
+      />
+    );
+  }
 }
