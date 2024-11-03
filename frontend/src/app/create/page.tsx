@@ -1,17 +1,22 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import ChatPanel from "./components/ChatPanel";
 import CodingPanel from "./components/CodingPanel";
 import PreviewPanel from "./components/PreviewPanel";
 import SideBarMenu from "./components/SideBarMenu";
+import useLoginState from "../useLoginState";
+import withAuth from "../auth/withAuth";
 
-export default function CreatePage() {
+function CreatePage() {
   const [title, setTitle] = useState("Create Page");
+  console.log(setTitle);
   const [html, setHTML] = useState("");
   const [css, setCSS] = useState("");
   const [isChatMenuOpen, setIsChatMenuOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+  const { loginState, updateLoginState } = useLoginState();
+  console.log(loginState);
   const sessions = [
     { id: "1", name: "Session 1" },
     { id: "2", name: "Session 2" },
@@ -55,3 +60,5 @@ export default function CreatePage() {
     </div>
   );
 }
+
+export default withAuth(CreatePage);
