@@ -10,7 +10,6 @@ if (!SECRET_KEY) {
 }
 
 export const createUser = async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
   try {
     const { email } = req.body;
     const userExists = await User.findOne({ email });
@@ -32,16 +31,12 @@ export const loginUser = async (
 ) => {
   try {
     const { email, password } = req.body;
-    console.log("email", email);
-    console.log("password", password);
     const userExists = await User.findOne({ email });
-    console.log("userExists", userExists);
     if (!userExists) {
       res.status(400).json({ error: "User not found" });
       return;
     }
     const isMatch = await bcrypt.compare(password, userExists.password);
-    console.log("isMatch", isMatch);
     if (!isMatch) {
       res.status(401).json({ message: "Incorrect password" });
       return;

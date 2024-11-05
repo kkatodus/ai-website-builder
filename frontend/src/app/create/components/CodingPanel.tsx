@@ -2,7 +2,7 @@ import Editor from "@monaco-editor/react";
 
 type CodingPanelProps = {
   code: string;
-  setCode: React.Dispatch<React.SetStateAction<string>>;
+  setCode: (code: string) => void;
   language: string;
 };
 

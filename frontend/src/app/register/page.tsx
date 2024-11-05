@@ -11,6 +11,7 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
+  const [erroMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ const RegisterPage: React.FC = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorMessage(err.response.data.error);
       });
   };
 
@@ -46,6 +48,11 @@ const RegisterPage: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Register</h2>
+        {erroMessage && (
+          <div className="p-4 text-red-500 bg-red-100 rounded-md">
+            {erroMessage}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label

@@ -5,7 +5,7 @@ import User, { IUser } from "@models/userModel";
 
 const SECRET_KEY = process.env.SECRET_KEY as string;
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   user?: IUser;
 }
 
@@ -15,7 +15,6 @@ export const authenticate = async (
   next: NextFunction
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
-
   if (!token) {
     res.status(401).json({ message: "Authentication required" });
     return;

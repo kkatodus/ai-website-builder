@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { title } from "process";
 
-interface IConversation {
+export interface IConversation {
   message: string;
   creator: "user" | "bot";
   timestamp: Date;
@@ -21,10 +22,11 @@ const ConversationSchema: Schema = new Schema({
 });
 
 const SessionSchema: Schema = new Schema({
+  title: { type: String, required: true },
   user: { type: mongoose.Types.ObjectId, ref: "User", required: true },
   conversationHistory: { type: [ConversationSchema], required: true },
-  htmlCode: { type: String, required: true },
-  cssCode: { type: String, required: true },
+  htmlCode: { type: String },
+  cssCode: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

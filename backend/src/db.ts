@@ -3,7 +3,6 @@ import mongoose, { ConnectOptions } from "mongoose";
 const connectDB = async () => {
   try {
     const dbUri = process.env.DATABASE_URL as string;
-    console.log("dbUri: ", dbUri);
     await mongoose.connect(dbUri, {
       directConnection: true,
     });

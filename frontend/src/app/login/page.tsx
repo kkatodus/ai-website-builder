@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import useLoginState from "../useLoginState";
+import useLoginState from "../hooks/useLoginState";
 
 const backendAPI = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -12,7 +12,7 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const { loginState, updateLoginState } = useLoginState();
+  const { updateLoginState } = useLoginState();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const endPoint = `${backendAPI}/user/login`;
@@ -32,11 +32,12 @@ const LoginPage: React.FC = () => {
     axios
       .request(config)
       .then((res) => {
-        setLoginSuccess(true);
         console.log(res.data);
+        setLoginSuccess(true);
         updateLoginState({
           token: res.data.token,
           loggedIn: true,
+          email: email,
         });
         router.push("/create");
       })

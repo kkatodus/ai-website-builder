@@ -1,39 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowCircleUp } from "react-icons/fa";
 import axios from "axios";
 import { GridLoader } from "react-spinners";
+import { sessionType } from "@/app/types/sessionTypes";
+import useLoginState from "@/app/hooks/useLoginState";
 const backendAPI = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 type ChatPanelProps = {
   curHTML: string;
   curCSS: string;
-  chatHistory: { type: string; message: string; id: string }[];
-  setHtml: (html: string) => void;
-  setCss: (css: string) => void;
-  setChatHistory: React.Dispatch<
-    React.SetStateAction<
-      {
-        type: string;
-        message: string;
-        id: string;
-      }[]
-    >
-  >;
+  sessionID: string;
+  currentSession: sessionType;
+  refetchSessionId: (sessionId: string) => void;
 };
 
 export default function ChatPanel(props: ChatPanelProps) {
-  const { curHTML, curCSS, chatHistory, setChatHistory, setCss, setHtml } =
-    props;
+  const { currentSession, sessionID, refetchSessionId } = props;
   const [message, setMessage] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
+  const { loginState } = useLoginState();
+
+  useEffect(() => {
+    const scrollReference = document.getElementById("scroll-reference");
+    if (scrollReference) {
+      scrollReference.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [currentSession]);
+
   const onMessageSubmit = () => {
     setSubmitDisabled(true);
-    console.log("submitDisabled", submitDisabled);
 
     const data = JSON.stringify({
-      curHTML: curHTML,
-      curCSS: curCSS,
+      curHTML: currentSession.htmlCode,
+      curCSS: currentSession.cssCode,
       userReq: message,
+      sessionID: sessionID,
     });
 
     const config = {
@@ -42,30 +43,15 @@ export default function ChatPanel(props: ChatPanelProps) {
       url: `${backendAPI}/chat/gpt-completion`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${loginState.token}`,
       },
       data: data,
     };
 
     axios
       .request(config)
-      .then((res) => {
-        const { response, html, css } = res.data;
-
-        setChatHistory([
-          ...chatHistory,
-          {
-            type: "user",
-            message: message,
-            id: (chatHistory.length + 1).toString(),
-          },
-          {
-            type: "bot",
-            message: response,
-            id: (chatHistory.length + 2).toString(),
-          },
-        ]);
-        setHtml(html);
-        setCss(css);
+      .then(() => {
+        refetchSessionId(sessionID);
       })
       .catch((error) => {
         console.log(error);
@@ -78,17 +64,17 @@ export default function ChatPanel(props: ChatPanelProps) {
   return (
     <div className="bg-white h-full relative">
       <div className="h-[80%] overflow-y-scroll">
-        {chatHistory.map((chat) => {
+        {currentSession.conversationHistory?.map((chat) => {
           return (
             <div
-              key={chat.id}
+              key={chat._id}
               className={`flex ${
-                chat.type == "bot" ? "justify-start" : "justify-end"
+                chat.creator == "bot" ? "justify-start" : "justify-end"
               }`}
             >
               <div
                 className={`${
-                  chat.type === "bot"
+                  chat.creator === "bot"
                     ? "bg-[#201f1f]  text-white"
                     : "bg-[#F4F4F4]  text-black"
                 } p-4 m-4 rounded-xl`}
@@ -98,6 +84,7 @@ export default function ChatPanel(props: ChatPanelProps) {
             </div>
           );
         })}
+        <div id="scroll-reference" />
       </div>
       <div className="h-[20%] flex items-center justify-center">
         <div className="flex bg-[#F4F4F4] relative w-[80%] h-90 p-4 justify-around rounded-xl">

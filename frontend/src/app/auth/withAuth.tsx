@@ -1,7 +1,7 @@
 // components/withAuth.tsx
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import useLoginState from "../useLoginState";
+import useLoginState from "../hooks/useLoginState";
 
 const withAuth = (WrappedComponent: React.ComponentType) => {
   // eslint-disable-next-line
