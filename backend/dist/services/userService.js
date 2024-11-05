@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = void 0;
-const getUser = (message) => {
-    console.log(`[log]: ${message}`);
+exports.createUser = void 0;
+const userRepository_1 = require("@repository/userRepository");
+const createUser = async (UserData) => {
+    return await (0, userRepository_1.createUser)(UserData);
 };
-exports.getUser = getUser;
+exports.createUser = createUser;

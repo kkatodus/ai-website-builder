@@ -19,8 +19,14 @@ function CreatePage() {
   const { loginState } = useLoginState();
   const [sessions, setSessions] = useState<sessionType[]>([]);
   const [currentSession, setCurrentSession] = useState<sessionType>(
-    sessions[0] || ({} as sessionType)
+    {} as sessionType
   );
+
+  useEffect(() => {
+    if (!currentSession._id) {
+      setIsChatMenuOpen(true);
+    }
+  }, [currentSession]);
   const createNewSession = async () => {
     const endpoint = `${backendAPI}/session/create`;
     const data = JSON.stringify({
@@ -168,27 +174,32 @@ function CreatePage() {
           </button>
           <TitleEditor title={currentSession.title} setTitle={setTitle} />
         </div>
-        <div className="flex h-[45%]">
-          <CodingPanel
-            code={currentSession.htmlCode}
-            setCode={setHtml}
-            language="html"
-          />
-          <CodingPanel
-            code={currentSession.cssCode}
-            setCode={setCSS}
-            language="css"
-          />
-        </div>
-        <div className="w-full h-[55%] border-t-2 border-black">
-          <ChatPanel
-            curHTML={currentSession.htmlCode}
-            curCSS={currentSession.cssCode}
-            currentSession={currentSession}
-            sessionID={currentSession._id}
-            refetchSessionId={refetchSessionId}
-          />
-        </div>
+
+        {currentSession._id && (
+          <>
+            <div className="flex h-[45%]">
+              <CodingPanel
+                code={currentSession.htmlCode}
+                setCode={setHtml}
+                language="html"
+              />
+              <CodingPanel
+                code={currentSession.cssCode}
+                setCode={setCSS}
+                language="css"
+              />
+            </div>
+            <div className="w-full h-[55%] border-t-2 border-black">
+              <ChatPanel
+                curHTML={currentSession.htmlCode}
+                curCSS={currentSession.cssCode}
+                currentSession={currentSession}
+                sessionID={currentSession._id}
+                refetchSessionId={refetchSessionId}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="h-full w-[40%] border-l-2 border-solid border-black">
