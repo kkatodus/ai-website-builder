@@ -158,13 +158,13 @@ function CreatePage() {
       />
       <div className="h-screen w-[60%] flex flex-col relative">
         <div className="w-full h-[10%] flex items-center border-b-2 border-solid border-black">
-          <button className="relative w-10 h-10 p-2 rounded-sm transition-all duration-300 ease-in-out z-[1000] bg-slate-200 hover:bg-slate-400">
-            <CiMenuBurger
-              className="w-full h-full"
-              onClick={() => {
-                setIsChatMenuOpen(!isChatMenuOpen);
-              }}
-            />
+          <button
+            className="relative w-10 h-10 p-2 rounded-sm transition-all duration-300 ease-in-out z-[1000] bg-slate-200 hover:bg-slate-400"
+            onClick={() => {
+              setIsChatMenuOpen(!isChatMenuOpen);
+            }}
+          >
+            <CiMenuBurger className="w-full h-full" />
           </button>
           <TitleEditor title={currentSession.title} setTitle={setTitle} />
         </div>
