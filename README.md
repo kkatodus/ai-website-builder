@@ -2,16 +2,6 @@
 
 This project is a web app that allows users who are not familiar with html or css to create a website by chatting with an AI assistant. The AI assistant will change the existing html and css in real time which is also rendered as a preview as the user and the AI makes changes to the code.
 
-## Time spent on parts
-
-### Part1
-
-This was done over the course of 5 days. Spending averagely 5h per day. Totalling 25h.
-
-### Part2
-
-This was done in 1 day. Spending 3h.
-
 ## Project structure
 
 - `backend` - contains the backend code that deals with saving of the user sessions as well as acts as a medium for the conversation between the frontend and the OpenAI API
