@@ -1,6 +1,6 @@
 # About this project
 
-This project is a web app that allows users who are not familiar with html or css to create a website by chatting with an AI assistant. The AI assistant will change the existing html and css in real time which is also rendered as a preview as the user and the AI makes changes to the code.
+This project is a web app that allows users who are not familiar with html or css to create a website by chatting with an AI assistant. The AI assistant will change the existing html and css in real time which is also rendered as a preview as the user and the AI makes changes to the code. A demo video of this project is available [here](https://youtu.be/NvvZ0OytMM4)
 
 ## Project structure
 
